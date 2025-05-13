@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Dashboard - SangConnect</title>
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Global styles */
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Arial', sans-serif;
+        }
+
+        .card {
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        canvas {
+            max-width: 100%;
+            height: 300px !important;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: white;
+            font-weight: bold;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+        }
+
+        .card-body {
+            padding: 20px;
+            font-size: 16px;
+            color: #fdf8f8;
+        }
+
+        .btn-view {
+            font-size: 16px;
+            color: white;
+            background-color: #007bff;
+            border-radius: 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+        }
+
+        .btn-view:hover {
+            background-color: #0056b3;
+        }
+
+        /* Stats Cards */
+        .stats-card {
+            background-color: #f8f9fa;
+            border: 1px solid #ddd;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 12px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+
+        .stats-card .card-body {
+            padding: 25px;
+            font-size: 18px;
+        }
+
+        /* Colored Backgrounds for Stats Cards */
+        .bg-danger { background-color: #872729 !important; }
+        .bg-warning { background-color: #770f0f !important; }
+        .bg-success { background-color: #ac8181 !important; }
+        .bg-info { background-color: #704e4e !important; }
+
+        /* Layout of the dashboard */
+        .row > .col-xl-3 {
+            margin-bottom: 30px;
+        }
+
+        /* Breadcrumb Styling */
+        .breadcrumb {
+            background-color: transparent;
+            padding: 10px 0;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #f8f9fa;
+            border-top: 1px solid #ddd;
+        }
+
+        footer a {
+            color: #007bff;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Chart Container */
+        .card-body canvas {
+            border-radius: 12px;
+            background-color: #ffffff;
+            padding: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <a class="navbar-brand ps-3" href="dashboard.html">SangConnect🩸</a>
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+
+
+            <a th:href="@{/logout}" class="btn btn-danger">Se déconnecter</a>
+
+    </form>
+</nav>
+
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">Core</div>
+                    <a class="nav-link" href="/admin/dashboard">
+                        <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                        Dashboard
+                    </a>
+                    <div class="sb-sidenav-menu-heading">Gestion</div>
+                    <a class="nav-link" href="/admin/centres">
+                        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                        Centres
+                    </a>
+                    <a class="nav-link" href="/admin/list">
+                        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                        Administrateurs
+                    </a>
+                    <a class="nav-link" href="/admin/demandes">
+                        <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>
+                        Demandes
+                    </a>
+                    <a class="nav-link" href="/admin/dons">
+                        <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div>
+                        Dons
+                    </a>
+                    <a class="nav-link" href="/admin/utilisateurs">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Utilisateurs
+                    </a>
+                    <a class="nav-link" href="/admin/rapports">
+                        <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
+                        Rapports
+                    </a>
+                </div>
+            </div>
+        </nav>
+    </div>
+
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Dashboard</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ol>
+
+                <!-- Stats Cards -->
+                <div class="row">
+                    <!-- Top Centres -->
+                    <div class="col-xl-3">
+                        <div class="card bg-success text-white">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold d-flex align-items-center gap-2">
+                                    <i class="fas fa-trophy"></i> Top Centres de Don
+                                </h5>
+                                <div th:each="center : ${topCenter}">
+
+                                        <span th:text="${center[0]} + ':'"></span>
+                                        <span th:text="${center[1]} + 'Dons'"></span>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Total Donations -->
+                    <div class="col-xl-3">
+                        <div class="card bg-info text-white">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold d-flex align-items-center gap-2">
+                                    <i class="fas fa-hand-holding-heart"></i> Total Donations
+                                </h5>
+                                <p th:text="'Donations: ' + ${totalDonations}"></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Demandes Saturées -->
+                    <div class="col-xl-3">
+                        <div class="card bg-danger text-white">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold d-flex align-items-center gap-2">
+                                    <i class="fas fa-exclamation-triangle"></i> Demandes Saturées
+                                </h5>
+                                <p>Demandes : <span th:text="${saturatedRequests}"></span></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Requests per Centre -->
+                    <div class="col-xl-3">
+                        <div class="card bg-warning text-white">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold d-flex align-items-center gap-2">
+                                    <i class="fas fa-hospital"></i> Requests per Centre
+                                </h5>
+                                <p>Centre X: 400 Requests</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Graphiques -->
+                <div class="row">
+                    <div class="col-md-6"> <!-- La moitié de la ligne -->
+
+                        <div class="card mt-4">
+                        <div class="card-body">
+                            <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold; color: #333; text-align: center;">Nombre de dons par centre</h5>
+                            <canvas id="donationChart" style="width: 100%; height: 300px;"></canvas>
+                        </div>
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+                            let labels = /*[[${centerNames}]]*/ [];
+                            let data = /*[[${donationCounts}]]*/ [];
+
+
+                        const ctx = document.getElementById('donationChart');
+                        new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Dons',
+                                    barThickness: 30,
+                                    data: data,
+                                    backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                                    borderColor: 'rgba(54, 162, 235, 1)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: { beginAtZero: true }
+                                }
+                            }
+                        });
+                    </script>
+
+
+                    <div class="col-md-6">
+                        <div class="card mt-4">
+                            <div class="card-body">
+                                <h5 class="card-title" style="font-size: 1.25rem; font-weight: bold; color: #333; text-align: center;">État des demandes</h5>
+                                <canvas id="requestChart" style="display: block; margin: 0 auto; width: 100%; height: 300px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script th:inline="javascript">
+                        /*<![CDATA[*/
+                        const statusLabels = /*[[${statuses}]]*/ [];
+                        const statusData = /*[[${statusCounts}]]*/ [];
+                        /*]]>*/
+
+                        const requestCtx = document.getElementById('requestChart');
+                        new Chart(requestCtx, {
+                            type: 'doughnut',
+                            data: {
+                                labels: statusLabels,
+                                datasets: [{
+                                    label: 'Demandes',
+                                    data: statusData,
+                                    backgroundColor: ['#28a745', '#dc3545'], // Vert pour satisfaites, rouge pour non
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        labels: {
+                                            color: '#333',
+                                            font: {
+                                                size: 14
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="py-4 mt-auto bg-light">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">SangConnect © 2025</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms & Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+</body></html>

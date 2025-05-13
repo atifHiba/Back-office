@@ -1,0 +1,91 @@
+<!-- templates/admin/admin-form.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Formulaire Admin</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .form-container {
+      max-width: 600px;
+      margin: 50px auto;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #8A0303;
+      margin-bottom: 30px;
+    }
+
+    .btn-dashboard {
+      background-color: #3DA9C6;
+      color: white;
+      border: none;
+    }
+
+    .btn-dashboard:hover {
+      background-color: #318da6;
+    }
+
+    .btn-success {
+      background-color: #8A0303;
+      border-color: #8A0303;
+    }
+
+    .btn-success:hover {
+      background-color: #700202;
+      border-color: #700202;
+    }
+
+    .btn-secondary {
+      background-color: #aa7978;
+      border-color: #aa7978;
+    }
+
+    .btn-secondary:hover {
+      background-color: #996868;
+      border-color: #996868;
+    }
+
+    .top-btn {
+      display: flex;
+      justify-content: flex-start;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+<div class="form-container">
+  <div class="top-btn">
+  </div>
+
+  <h2 th:text="${admin.id != null} ? 'Modifier un administrateur' : 'Ajouter un administrateur'"></h2>
+
+  <form th:action="@{/admin/save}" th:object="${admin}" method="post">
+    <input type="hidden" th:field="*{id}" />
+
+    <div class="mb-3">
+      <label th:for="*{username}" class="form-label">Nom d'utilisateur</label>
+      <input type="text" th:field="*{username}" class="form-control" required />
+    </div>
+
+    <div class="mb-3">
+      <label th:for="*{password}" class="form-label">Mot de passe</label>
+      <input type="password" th:field="*{password}" class="form-control" required />
+    </div>
+
+    <div class="d-flex justify-content-between">
+      <button type="submit" class="btn btn-success">💾 Enregistrer</button>
+      <a href="/admin/list" class="btn btn-secondary">↩ Annuler</a>
+    </div>
+  </form>
+</div>
+</body>
+</html>

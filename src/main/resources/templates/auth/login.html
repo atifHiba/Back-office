@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Connexion Admin - Don de Sang</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #220202, #ac8181);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', sans-serif;
+            color: #fff;
+        }
+
+        .card {
+            border: none;
+            border-radius: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+        }
+
+        .admin-welcome {
+            text-align: center;
+            color: #470205;
+            margin-bottom: 1rem;
+        }
+
+        .admin-welcome .fa-droplet {
+            font-size: 3rem;
+            color: #b31217;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.2); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
+        }
+
+        .form-control {
+            border-radius: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: #b31217;
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #8e1013;
+        }
+
+        a {
+            color: #b31217;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-5">
+            <div class="card p-4">
+                <div class="admin-welcome">
+                    <i class="fas fa-droplet"></i>
+                    <h4 class="mt-2">Bienvenue, Gardien de la Vie</h4>
+                    <p class="mb-0">Merci de veiller sur le flux vital de notre communauté. Votre rôle est précieux.</p>
+                </div>
+                <hr>
+                <div class="card-body">
+                    <form th:action="@{/login}" method="post">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="username" name="username" placeholder="Nom d'utilisateur" required>
+                            <label for="username">Nom d'utilisateur</label>
+                        </div>
+                        <div class="form-floating mb-3">
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Mot de passe" required>
+                            <label for="password">Mot de passe</label>
+                        </div>
+                        <div class="form-check mb-3">
+                            <input class="form-check-input" id="remember" type="checkbox" />
+                            <label class="form-check-label" for="remember">Se souvenir de moi</label>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" type="submit">Se connecter</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center bg-white border-0 mt-2">
+                    <small>Vous n'avez pas de compte ? <a th:href="@{/register}">Inscrivez-vous</a></small>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
+
+
+
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body class="container mt-5">
+
+<h2>Connexion</h2>
+
+<form action="#" th:action="@{/login}" method="post">
+    <div class="mb-3">
+        <label for="username" class="form-label">Nom d'utilisateur</label>
+        <input type="text" class="form-control" id="username" name="username" required>
+    </div>
+    <div class="mb-3">
+        <label for="password" class="form-label">Mot de passe</label>
+        <input type="password" class="form-control" id="password" name="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Se connecter</button>
+</form>
+
+</body>
+</html> -->
