@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><!DOCTYPE html>
+      <html xmlns:th="http://www.thymeleaf.org">
+      <head>
+      <meta charset="UTF-8">
+      <title>Liste des Administrateurs</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+
+    .main-container {
+      max-width: 800px;
+      margin: auto;
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #770f0f;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .btn-dashboard {
+      background-color: #3DA9C6;
+      color: white;
+      border: none;
+    }
+
+    .btn-dashboard:hover {
+      background-color: #318da6;
+    }
+
+    .btn-primary {
+      background-color: #8A0303;
+      border-color: #8A0303;
+    }
+
+    .btn-primary:hover {
+      background-color: #700202;
+      border-color: #700202;
+    }
+
+    .btn-warning {
+      background-color: #aa7978;
+      border-color: #aa7978;
+    }
+
+    .btn-warning:hover {
+      background-color: #996868;
+      border-color: #996868;
+    }
+
+    .btn-danger {
+      background-color: #dc3545;
+    }
+  </style>
+</head>
+<body>
+<div class="main-container mt-5">
+  <div class="d-flex justify-content-between mb-3">
+    <a th:href="@{/admin/dashboard}" class="btn btn-outline-dark">← Retour</a>
+  </div>
+
+  <h2 class="text-3xl font-bold text-center text-[#8A0303] mb-6">
+    Liste des administrateurs
+  </h2>  <div class="text-end mb-3">
+
+  <a href="/admin/form" class="btn btn-primary">➕ Nouveau administrateur</a>
+  </div>
+  <table class="table table-bordered text-center">
+    <thead class="table-light">
+    <tr>
+      <th>ID</th>
+      <th>Nom d'utilisateur</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="admin : ${admins}">
+      <td th:text="${admin.id}"></td>
+      <td th:text="${admin.username}"></td>
+      <td >
+        <a th:href="@{/admin/form(id=${admin.id})}" class="btn btn-warning btn-sm">Modifier</a>
+        <a th:href="@{/admin/delete(id=${admin.id})}" class="btn btn-danger btn-sm"
+           onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet administrateur ?')">Supprimer</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+</body>
+</html>
+</title>
+</head>
+<body>
+
+</body>
+</html>
