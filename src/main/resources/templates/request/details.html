@@ -4,20 +4,38 @@
     <meta charset="UTF-8">
     <title>Détails de la Demande</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/styles.css" rel="stylesheet"> <!-- Contient peut-être sb-sidenav -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
-<body class="bg-light">
+<body class="bg-light sb-nav-fixed">
+<div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container py-5">
+<div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
+    <!-- Breadcrumb EN DEHORS du formulaire -->
+    <div id="layoutSidenav_content" style="padding: 20px; margin-left: 250px;">
+        <!-- Ajuste margin-left selon la largeur de ton sidebar -->
+
+        <!-- Breadcrumb -->
+        <nav aria-label="breadcrumb" class="breadcrumb-container">
+            <ol class="breadcrumb">
+                <li><a href="/admin/dashboard">Accueil</a></li>
+                <li><a href="/requests">Demandes</a></li>
+                <li class="active" aria-current="page">Détails Demande</li>
+            </ol>
+        </nav>
+        <div class="container  justify-content-center align-items-start">
+
+
     <!-- Bouton retour au Dashboard -->
-    <div class="mb-4 d-flex justify-content-between align-items-center">
 
-        <h2 class="text-center w-100">Détails de la Demande</h2>
-    </div>
 
     <!-- Carte principale -->
     <div class="card shadow mx-auto" style="max-width: 700px;">
-        <div class="card-body">
-            <h5 class="card-title mb-4">Informations sur la Demande</h5>
+        <div class="card-body ">
+            <h5 class="card-title mb-4 text-center">Informations sur la Demande</h5>
 
             <div class="mb-3">
                 <strong>Type de sang :</strong>
@@ -45,19 +63,19 @@
             </div>
 
             <hr>
-            <h6 class="mb-3">Informations de l'utilisateur</h6>
+            <h6 class="mb-3 text-center">Informations de l'utilisateur</h6>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item"><strong>Prénom :</strong> <span th:text="${user.firstName}"></span></li>
                 <li class="list-group-item"><strong>Nom :</strong> <span th:text="${user.lastName}"></span></li>
                 <li class="list-group-item"><strong>Email :</strong> <span th:text="${user.email}"></span></li>
+                <li class="list-group-item"><strong>Phone :</strong> <span th:text="${user.phone}"></span></li>
+
             </ul>
         </div>
 
-        <div class="card-footer text-end">
-            <a th:href="@{/requests}" class="btn btn-secondary">← Retour aux demandes</a>
-        </div>
+
     </div>
 </div>
-
+    </div></div>
 </body>
 </html>

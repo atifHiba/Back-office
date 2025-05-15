@@ -104,6 +104,48 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+
+/* Titres : Core, Gestion... */
+.sb-sidenav-menu-heading {
+  color: #b2d3e1 !important;
+  font-size: 2.5rem;
+  font-weight: 900;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem; /* pas de décalage */
+  text-shadow:  1px 1px 2px rgba(0, 0, 0, 0.4),   /* ombre principale */
+  0 0 5px rgba(178, 211, 225, 0.2);  /* donne du relief */
+
+}
+
+/* Liens : Dashboard, Centres, etc. */
+.nav-link {
+  color: #edd5d5 !important;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.2); /* donne du relief */
+
+}
+
+/* Icônes dans les liens */
+.nav-link .sb-nav-link-icon {
+  color: rgb(178, 211, 225) !important;
+  margin-right: 0.5rem;
+}
+
+/* Hover */
+.nav-link:hover {
+  background-color: #b3060b !important;
+  color: #ffffff !important;
+}
+
+.nav-link:hover .sb-nav-link-icon {
+  color: #ffffff !important;
+}
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -11240,4 +11282,152 @@ body {
   width: 20px !important;
   font-size: 0.75rem;
   border-radius: 0.375rem !important;
+}
+.custom-navbar {
+  background: linear-gradient(to right, rgba(191, 165, 165, 0.59), rgba(202, 11, 11, 0.6)) !important;
+}
+
+
+.sb-sidenav {
+  height: 100vh !important; /* pleine hauteur */
+  background: linear-gradient(to bottom, rgba(191, 165, 165, 0.82), rgb(156, 8, 8)) !important;
+  background-repeat: no-repeat !important;
+  background-size: cover !important;
+  color: #0e0000; /* texte sombre */
+}
+
+
+
+.sb-sidenav-menu-heading {
+  color: #fdf8f8 !important;
+  font-size: 2.5rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+  padding-left: 1rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4),
+  0 0 5px rgba(178, 211, 225, 0.2);
+}
+
+
+/* Liens : Dashboard, Centres, etc. */
+.nav-link {
+  color: #c7d8e1 !important;
+  font-size: 1rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  text-shadow:  1px 1px 2px rgba(0, 0, 0, 0.4),   /* ombre principale */
+  0 0 5px rgba(178, 211, 225, 0.2);  /* donne du relief */
+
+}
+
+/* Icônes dans les liens */
+.nav-link .sb-nav-link-icon {
+  color: rgb(253, 248, 248) !important;
+  margin-right: 0.5rem;
+
+}
+
+/* Hover */
+.nav-link:hover {
+  background-color: #b3060b !important;
+  color: #ffffff !important;
+}
+
+.nav-link:hover .sb-nav-link-icon {
+  color: #ffffff !important;
+}
+nav.breadcrumb-container {
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  padding-left: 0;
+  background: transparent;
+}
+
+ol.breadcrumb {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+ol.breadcrumb li {
+  position: relative;
+  font-weight: 500;
+}
+
+/* Flèche entre les éléments sauf le dernier */
+ol.breadcrumb li:not(:last-child)::after {
+  content: '›';
+  margin-left: 0.5rem;
+  color: #b31217;
+  font-weight: bold;
+  font-size: 1.2rem;
+  position: relative;
+  top: 2px;
+}
+
+/* Boutons liens + actif ont même taille et styles */
+ol.breadcrumb a,
+ol.breadcrumb .active {
+  display: inline-block;
+  min-width: 110px;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-align: center;
+  box-sizing: border-box;
+  white-space: nowrap;
+  user-select: none;
+  text-decoration: none;
+}
+
+/* Liens */
+ol.breadcrumb a {
+  color: #470205;
+  background-color: #f3e8e8;
+  border-bottom: 2px solid transparent;
+  transition: background-color 0.3s ease, color 0.3s ease, border-bottom-color 0.3s ease;
+}
+
+ol.breadcrumb a:hover {
+  background-color: #b31217;
+  color: white;
+  border-bottom-color: #8c6363;
+}
+
+/* Élément actif */
+ol.breadcrumb .active {
+  color: white;
+  background-color: #b31217;
+  font-weight: 700;
+  border-bottom: 5px solid #8e0609;
+  cursor: default;
+  min-width: 150px;
+  padding: 6px 12px;
+  border-radius: 50px;
+  font-weight: 700;}
+
+.main-container {
+  width: 100%; /* La largeur prendra toute la largeur de l'écran */
+  margin: auto;
+}
+h3 {
+  color: #4c3333;
+  font-weight: 500;
+  text-align: center;
+  margin-bottom: 30px;
+}
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.2); opacity: 0.7; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.btn-deconnecter{
+  background-color: #c8171a;
+  color: white;
 }

@@ -1,20 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-      <html xmlns:th="http://www.thymeleaf.org">
-      <head>
-      <meta charset="UTF-8">
-      <title>Liste des Administrateurs</title>
+  <meta charset="UTF-8">
+  <title>Liste des Administrateurs</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet"> <!-- Contient peut-être sb-sidenav -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       background-color: #f8f9fa;
     }
 
+    /* Sidebar and Content Layout */
+    #layoutSidenav {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    #layoutSidenav_nav {
+      width: 250px;
+      flex-shrink: 0;
+    }
+
+    #layoutSidenav_content {
+      flex-grow: 1;
+      padding: 20px;
+    }
+
     .main-container {
-      max-width: 800px;
+      width: 80%; /* La largeur prendra toute la largeur de l'écran */
       margin: auto;
       background-color: #ffffff;
       border-radius: 8px;
@@ -22,13 +37,24 @@
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
 
-    h2 {
-      color: #770f0f;
-      font-weight: 700;
-      text-align: center;
-      margin-bottom: 30px;
+
+
+    /* Custom breadcrumb */
+    .breadcrumb {
+      background-color: transparent;
+      padding: 0;
     }
 
+    .breadcrumb-item a {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .breadcrumb-item a:hover {
+      color: #0056b3;
+    }
+
+    /* Buttons styling */
     .btn-dashboard {
       background-color: #3DA9C6;
       color: white;
@@ -50,7 +76,7 @@
     }
 
     .btn-warning {
-      background-color: #aa7978;
+      background-color: #f3b937;
       border-color: #aa7978;
     }
 
@@ -60,48 +86,78 @@
     }
 
     .btn-danger {
-      background-color: #dc3545;
+      background-color: #3da9c6;
     }
+
+
+    /* Sidebar Color */
+
   </style>
 </head>
-<body>
-<div class="main-container mt-5">
-  <div class="d-flex justify-content-between mb-3">
-    <a th:href="@{/admin/dashboard}" class="btn btn-outline-dark">← Retour</a>
-  </div>
+<body class="sb-nav-fixed">
+<div th:replace="fragments/navbar :: navbar"></div>
 
-  <h2 class="text-3xl font-bold text-center text-[#8A0303] mb-6">
-    Liste des administrateurs
-  </h2>  <div class="text-end mb-3">
+<div id="layoutSidenav">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
 
-  <a href="/admin/form" class="btn btn-primary">➕ Nouveau administrateur</a>
+  <!-- Main content area -->
+  <div id="layoutSidenav_content" style="padding: 20px; margin-left: 250px;">
+    <!-- Ajuste margin-left selon la largeur de ton sidebar -->
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="breadcrumb-container">
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard">Accueil</a></li>
+        <li class="active" aria-current="page">Administrateurs</li>
+
+      </ol>
+    </nav>
+    <div class="main-container mt-5" style="max-width: 900px; margin: auto;">
+
+        <!-- Title -->
+      <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+        <i class="fas fa-user-shield fa-bounce" style="color: #c8171a; font-size: 1.8rem; animation: pulse 1.5s infinite;"></i>
+        <h3 class="m-0" style="color: #8e0609;">
+          Les administrateurs
+        </h3>
+      </div>
+
+
+      <!-- New Admin Button -->
+      <div class="text-end mb-3 ">
+        <a href="/admin/form" class="btn btn-primary">➕ Nouveau </a>
+      </div>
+
+      <!-- Table -->
+      <table class="table table-bordered text-center">
+        <thead class="table-light">
+        <tr>
+          <th>ID</th>
+          <th>Nom d'utilisateur</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="admin : ${admins}">
+          <td th:text="${admin.id}"></td>
+          <td th:text="${admin.username}"></td>
+          <td>
+            <a th:href="@{/admin/form(id=${admin.id})}"   class="btn btn-warning btn-sm me-1"
+               style="color: #212529; border: none;">
+              <i class="fas fa-edit"></i> Modifier
+            </a>
+            <a th:href="@{/admin/delete(id=${admin.id})}"  class="btn btn-danger btn-sm"
+               style="border: none;"
+               onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet administrateur ?')">    <i class="fas fa-trash-alt">
+            </i> Supprimer</a>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-  <table class="table table-bordered text-center">
-    <thead class="table-light">
-    <tr>
-      <th>ID</th>
-      <th>Nom d'utilisateur</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="admin : ${admins}">
-      <td th:text="${admin.id}"></td>
-      <td th:text="${admin.username}"></td>
-      <td >
-        <a th:href="@{/admin/form(id=${admin.id})}" class="btn btn-warning btn-sm">Modifier</a>
-        <a th:href="@{/admin/delete(id=${admin.id})}" class="btn btn-danger btn-sm"
-           onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet administrateur ?')">Supprimer</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
 </div>
-</body>
-</html>
-</title>
-</head>
-<body>
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

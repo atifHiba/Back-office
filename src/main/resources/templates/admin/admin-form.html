@@ -4,16 +4,20 @@
 <head>
   <title>Formulaire Admin</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/styles.css" rel="stylesheet"> <!-- Contient peut-être sb-sidenav -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+
   <style>
     body {
       background-color: #f8f9fa;
     }
 
     .form-container {
-      max-width: 600px;
+      width: 50%;
+      height: calc(100vh - 80px); /* 100% de la hauteur de l'écran, moins la hauteur de la navbar (ajuster si nécessaire) */
       margin: 50px auto;
       background-color: #ffffff;
-      padding: 30px;
+      padding: 20px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
@@ -59,15 +63,37 @@
       justify-content: flex-start;
       margin-bottom: 20px;
     }
+
   </style>
 </head>
-<body>
-<div class="form-container">
+<body class="sb-nav-fixed">
+<div th:replace="fragments/navbar :: navbar"></div>
+
+<div id="layoutSidenav">
+  <!-- Sidebar -->
+  <div th:replace="fragments/sidebar :: sidebar"></div>
+  <div id="layoutSidenav_content" style="padding: 20px; margin-left: 250px;">
+    <!-- Ajuste margin-left selon la largeur de ton sidebar -->
+
+    <!-- Breadcrumb -->
+    <nav aria-label="breadcrumb" class="breadcrumb-container">
+      <ol class="breadcrumb">
+        <li><a href="/admin/dashboard">Accueil</a></li>
+        <li><a href="/admin/list">Administrateurs</a></li>
+        <li class="active" aria-current="page"
+            th:text="${admin.id} != null ? 'Modifier Administrateur' : 'Nouveau Administrateur'">
+
+        </li>
+      </ol>
+    </nav>
+<div class="form-container mt-5 mb-5">
   <div class="top-btn">
   </div>
 
-  <h2 th:text="${admin.id != null} ? 'Modifier un administrateur' : 'Ajouter un administrateur'"></h2>
-
+  <h4 class=" text-center mb-4" style="color: #8e0609; ">
+    <i class="fas fa-user-shield fa-bounce" style="color: #c8171a; font-size: 1.8rem; animation: pulse 1.5s infinite;"></i>
+    <span th:text="${admin.id != null ? 'Modifier un administrateur' : 'Créer un nouveau administrateur'}"></span>
+  </h4>
   <form th:action="@{/admin/save}" th:object="${admin}" method="post">
     <input type="hidden" th:field="*{id}" />
 
@@ -86,6 +112,8 @@
       <a href="/admin/list" class="btn btn-secondary">↩ Annuler</a>
     </div>
   </form>
+</div></div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </div>
 </body>
 </html>

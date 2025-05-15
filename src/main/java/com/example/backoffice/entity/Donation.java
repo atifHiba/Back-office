@@ -32,6 +32,10 @@ public class Donation {
     @JoinColumn(name = "center_id", nullable = false)
     private DonationCenter donationCenter;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "appointment_id", nullable = true)
+    private Appointment appointment;
+
     @Column(name = "donation_date", nullable = false)
     private LocalDateTime date;
 

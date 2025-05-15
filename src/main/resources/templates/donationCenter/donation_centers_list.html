@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Liste des Centres de Dons</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/styles.css" rel="stylesheet"> <!-- Contient peut-être sb-sidenav -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <style>
         body {
@@ -21,24 +23,22 @@
             box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
         }
 
-        h2 {
-            color: #770f0f;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .table thead {
-            background-color: #ac8181;
-            color: white;
+        .main-container {
+            max-width: 800px;
+            margin: auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
 
         .table th {
-            background-color: #ac8181 !important;
-            color: white;
+            background-color: #f1f5f8 !important;
+            color: #0e0000;
         }
 
         .btn-custom {
-            background-color: #570306;
+            background-color: #8e0609;
             border: none;
             color: white;
             transition: all 0.3s ease-in-out;
@@ -50,18 +50,20 @@
             color: white;
         }
 
-        .btn-warning, .btn-danger {
+        .btn-warning .btn-danger {
             transition: all 0.3s ease-in-out;
         }
 
         .btn-warning:hover, .btn-danger:hover {
             transform: scale(1.05);
         }
-
+        .btn-danger{
+            background-color: #3da9c6;
+        }
 
 
         .table-striped tbody tr:nth-of-type(odd) {
-            background-color: #f2f2f2;
+            background-color: #fdf8f8;
         }
 
         .table td, .table th {
@@ -74,49 +76,80 @@
     </style>
 </head>
 
-<body>
+<body class="sb-nav-fixed">
+<div th:replace="fragments/navbar :: navbar"></div>
 
-<div class="container">
-    <a th:href="@{/admin/dashboard}" class="btn btn-outline-dark">← Retour</a>
+<div id="layoutSidenav">
+    <!-- Sidebar -->
+    <div th:replace="fragments/sidebar :: sidebar"></div>
 
-    <h2>Liste des Centres de Dons</h2>
+
+        <!-- Breadcrumb for navigation -->
+        <div id="layoutSidenav_content" style="padding: 20px; margin-left: 250px;">
+            <!-- Ajuste margin-left selon la largeur de ton sidebar -->
+
+            <!-- Breadcrumb -->
+            <nav aria-label="breadcrumb" class="breadcrumb-container">
+                <ol class="breadcrumb">
+                    <li><a href="/admin/dashboard">Accueil</a></li>
+                    <li class="active" aria-current="page">Centres</li>
+
+                </ol>
+            </nav>
+        <div class="main-container mt-5" style="max-width: 900px; margin: auto;">
+
 
     <div class="text-end mb-3">
+        <div class="d-flex justify-content-center align-items-center gap-2 mb-4">
+            <i class="fas fa-hospital-symbol fa-bounce" style="color: #c8171a; font-size: 1.8rem; animation: pulse 1.5s infinite;"></i>
+            <h3 class="m-0" style="color: #8e0609;">
+                Les centres de don
+            </h3>
+        </div>
+
+
 
         <a href="/donationCenters/create" class="btn btn-custom">➕ Nouveau centre</a>
     </div>
 
-    <table class="table table-striped table-bordered">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Adresse</th>
-            <th>Ville</th>
-            <th>Téléphone</th>
-            <th>Type</th>
-            <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        <th:block th:each="donationCenter : ${donationCenters}">
-            <tr>
-                <td th:text="${donationCenter.id}">1</td>
-                <td th:text="${donationCenter.name}">Nom</td>
-                <td th:text="${donationCenter.address}">Adresse</td>
-                <td th:text="${donationCenter.city.name}">Ville</td>
-                <td th:text="${donationCenter.contactPhone}">Téléphone</td>
-                <td th:text="${donationCenter.type}">Type</td>
-                <td class="action-buttons">
-                    <a th:href="@{/donationCenters/edit/{id}(id=${donationCenter.id})}" class="btn btn-warning btn-sm">Modifier</a>
-                    <a th:href="@{/donationCenters/delete/{id}(id=${donationCenter.id})}" class="btn btn-danger btn-sm">Supprimer</a>
-                </td>
-            </tr>
-        </th:block>
-        </tbody>
-    </table>
-</div>
+            <table class="table table-striped table-bordered shadow-sm" style="border-radius: 10px; overflow: hidden; background-color: #fff;">
+                <thead style="background-color: #8e0609; color: white;">
+                <tr>
+                    <th>Nom</th>
+                    <th>Adresse</th>
+                    <th>Ville</th>
+                    <th>Téléphone</th>
+                    <th>Type</th>
+                    <th>Actions</th>
+                </tr>
+                </thead>
+                <tbody>
+                <th:block th:each="donationCenter : ${donationCenters}">
+                    <tr style="transition: background-color 0.2s;">
+                        <td th:text="${donationCenter.name}">Nom</td>
+                        <td th:text="${donationCenter.address}">Adresse</td>
+                        <td th:text="${donationCenter.city.name}">Ville</td>
+                        <td th:text="${donationCenter.contactPhone}">Téléphone</td>
+                        <td th:text="${donationCenter.type}">Type</td>
+                        <td>
+                            <a th:href="@{/donationCenters/edit/{id}(id=${donationCenter.id})}"
+                               class="btn btn-warning btn-sm me-1"
+                               style="color: #212529; border: none;">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                            <a th:href="@{/donationCenters/delete/{id}(id=${donationCenter.id})}"
+                               class="btn btn-danger btn-sm"
+                               style="border: none;">
+                                <i class="fas fa-trash-alt"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                </th:block>
+                </tbody>
+            </table>
 
+        </div>
+    </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+</div></body>
 </html>

@@ -1,5 +1,6 @@
 package com.example.backoffice.controller;
 
+import com.example.backoffice.dao.AdminRepository;
 import com.example.backoffice.dao.DonationCenterRepository;
 import com.example.backoffice.dao.DonationRepository;
 import com.example.backoffice.dao.RequestRepository;
@@ -15,7 +16,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class AdminController {
     private final DonationCenterService donationCenterService;
     private final RequestRepository requestRepository;
     private final DonationRepository donationRepository;
+    private final AdminRepository adminRepository;
 
     @GetMapping("/admin/dashboard")
     public String dashboard(Model model) {
@@ -37,7 +40,8 @@ public class AdminController {
             long totalDonors = donationService.getTotalDonors();
             long totalDonations = donationService.getTotalDonations();
         long saturatedRequests = requestRepository.countSaturatedRequests();
-
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
         List<String> centerNames = new ArrayList<>();
         List<Long> donationCounts = new ArrayList<>();
 
@@ -45,7 +49,8 @@ public class AdminController {
             centerNames.add((String) obj[0]);
             donationCounts.add((Long) obj[1]);
         }
-
+        Admin admin = adminRepository.findByUsername(username).orElse(null);
+        model.addAttribute("admin", admin);
         model.addAttribute("centerNames", centerNames);
         model.addAttribute("donationCounts", donationCounts);
         model.addAttribute("saturatedRequests", saturatedRequests);
