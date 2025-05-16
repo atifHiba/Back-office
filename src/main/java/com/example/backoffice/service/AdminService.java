@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface AdminService {
-    Admin save(Admin admin);
+    void save(Admin admin);
     List<Admin> findAll();
     Optional<Admin> findById(Long id);
     Optional<Admin> findByUsername(String username);

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Rapport Global</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2em;
+        }
+        h1 {
+            color: #3c3c3c;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background: #f4f4f4;
+            margin-bottom: 10px;
+            padding: 1em;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<h1>📊 Rapport Global</h1>
+<ul>
+    <li>Total des demandes : <strong th:text="${totalRequests}"></strong></li>
+    <li>Total des dons : <strong th:text="${totalDonations}"></strong></li>
+    <li>Total des utilisateurs : <strong th:text="${totalUsers}"></strong></li>
+    <li>Total des centres de dons : <strong th:text="${totalDonationCenters}"></strong></li>
+</ul>
+</body>
+</html>

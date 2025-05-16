@@ -44,6 +44,8 @@ public class DonationCenterController {
     // Formulaire pour éditer un centre de don existant
     @GetMapping("/edit/{id}")
     public String editDonationCenter(@PathVariable Long id, Model model) {
+        model.addAttribute("cities", cityService.getAllCities());// Création d'un nouvel objet vide pour la création
+
         Optional<DonationCenter> donationCenter = donationCenterService.getDonationCenterById(id);
         if (donationCenter.isPresent()) {
             model.addAttribute("donationCenter", donationCenter.get());

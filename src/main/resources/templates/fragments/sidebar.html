@@ -20,13 +20,18 @@
                         Dashboard
                     </a>
                     <div class="sb-sidenav-menu-heading">Gestion</div>
-                    <a class="nav-link" th:href="@{/admin/centres}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
-                        Centres
-                    </a>
+
                     <a class="nav-link " th:href="@{/admin/list}">
                         <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
                         Administrateurs
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/utilisateurs}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
+                        Utilisateurs
+                    </a>
+                    <a class="nav-link" th:href="@{/admin/centres}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-building"></i></div>
+                        Centres
                     </a>
                     <a class="nav-link" th:href="@{/admin/demandes}">
                         <div class="sb-nav-link-icon"><i class="fas fa-list-alt"></i></div>
@@ -36,14 +41,12 @@
                         <div class="sb-nav-link-icon"><i class="fas fa-gift"></i></div>
                         Dons
                     </a>
-                    <a class="nav-link" th:href="@{/admin/utilisateurs}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                        Utilisateurs
+
+                    <a class="nav-link" th:href="@{/reports/download}">
+                        <div class="sb-nav-link-icon"><i class="fas fa-download"></i></div>
+                        Rapport
                     </a>
-                    <a class="nav-link" th:href="@{/admin/rapports}">
-                        <div class="sb-nav-link-icon"><i class="fas fa-chart-line"></i></div>
-                        Rapports
-                    </a>
+
                 </div>
             </div>
         </nav>

@@ -13,7 +13,6 @@
     }
 
     .main-container {
-      max-width: 800px;
       margin: auto;
       background-color: #ffffff;
       border-radius: 8px;
@@ -72,6 +71,7 @@
     .btn-danger:hover {
       background-color: #bb2d3b;
     }
+
   </style>
 </head>
 <body class="sb-nav-fixed">
@@ -93,7 +93,7 @@
       </ol>
     </nav>
 
-    <div class="main-container mt-5" style="margin: auto;  margin-right: 200px;">
+    <div class="main-container mt-5" style="margin: auto;  margin-right: 300px;">
 
 
 
@@ -116,7 +116,7 @@
       <th>Ville</th>
       <th>Phone</th>
       <th>Role</th>
-      <th>Actions</th>
+      <th >Actions</th>
 
 
     </tr>
@@ -130,12 +130,13 @@
       <td th:text="${user.role}"></td>
 
 
-      <td>
+      <td style="display: flex; justify-content: center; gap: 10px;">
         <a th:href="@{/users/edit/{id}(id=${user.id})}" class="btn btn-warn btn-sm">Modifier</a>
         <a th:href="@{/users/delete/{id}(id=${user.id})}"
            onclick="return confirm('Confirmer la suppression ?')"
            class="btn btn-dang btn-sm">Supprimer</a>
       </td>
+
     </tr>
     </tbody>
   </table>

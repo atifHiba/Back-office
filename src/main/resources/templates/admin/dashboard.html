@@ -157,9 +157,9 @@ h5{             color: rgb(186, 15, 18) !important;
     <div id="layoutSidenav_content">
         <main>
             <div class="container-fluid px-4 ">
-                <h1 class="mt-4 dashboard-title">Dashboard</h1>
+                <h1 class="mt-4 dashboard-title" th:text="#{dashboard}">Tableau de bord</h1>
 
-                <h6 class="welcome-msg  mb-5" style="text-indent: 2em;">
+                <h6 class="welcome-msg  mb-5" style="text-indent: 2em;"  th:text="#{welcome.message(${admin.username})}">
                     Bienvenue, <span th:text="${admin.username}"></span> !
                 </h6>
 
