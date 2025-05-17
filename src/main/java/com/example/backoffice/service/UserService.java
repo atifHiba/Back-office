@@ -1,5 +1,7 @@
 package com.example.backoffice.service;
 
+import com.example.backoffice.entity.Request;
+import com.example.backoffice.entity.Role;
 import com.example.backoffice.entity.User;
 
 import java.util.List;
@@ -11,4 +13,5 @@ public interface UserService {
     User createUser(User user);
     User updateUser(Long id, User user);
     void deleteUser(Long id);
+    List<User> findByRole(String role);
 }

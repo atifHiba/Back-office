@@ -107,8 +107,21 @@
       <div class="text-end mb-3">
     <a th:href="@{/users/create}" class="btn btn-primary">➕ Ajouter un utilisateur</a>
   </div>
+      <form th:action="@{/users}" method="get" class="d-flex align-items-center mb-3">
+        <label for="roleFilter" class="me-2 d-flex align-items-center">
+          <i class="fas fa-user-shield text-primary me-1"></i>
+          <span class="fw-semibold">Rôle</span>
 
-  <table class="table table-bordered text-center">
+        </label>
+        <select id="roleFilter" name="role" class="form-select form-select-sm w-auto ms-2" onchange="this.form.submit()">
+          <option th:value="ALL" th:selected="${roleFilter == null or roleFilter == 'ALL'}">Tous</option>
+          <option th:value="USER" th:selected="${roleFilter == 'USER'}">Utilisateurs</option>
+          <option th:value="CENTER_MANAGER" th:selected="${roleFilter == 'CENTER_MANAGER'}">Center Manager</option>
+        </select>
+      </form>
+
+      <table class="table table-bordered text-center">
+
     <thead class="table-light">
     <tr>
       <th>Nom d'utilisateur</th>

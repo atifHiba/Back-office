@@ -79,8 +79,31 @@
             <div class="text-end mb-3">
                 <a href="/requests/create" class="btn btn-main">➕ Nouvelle Demande</a>
             </div>
+                <form th:action="@{/requests}" method="get" class="d-flex align-items-center mb-4">
+                    <!-- Filtre Centre -->
+                    <label for="centerFilter" class="me-2">
+                        <i class="fas fa-map-marker-alt me-1 text-primary"></i>Centre :
+                    </label>
+                    <select id="centerFilter" name="centerId" class="form-select form-select-sm w-auto me-3" onchange="this.form.submit()">
+                        <option th:value="ALL" th:selected="${centerFilter == null or centerFilter == 'ALL'}">Tous les centres</option>
+                        <option th:each="center : ${centers}"
+                                th:value="${center.id}"
+                                th:text="${center.name}"
+                                th:selected="${centerFilter != null} ? ${centerFilter.equals(center.id.toString())} : false"></option>
+                    </select>
 
-            <!-- Tableau des demandes -->
+                    <!-- Nouveau filtre Saturation -->
+                    <label for="saturationFilter" class="me-2">
+                        <i class="fas fa-tint me-1 text-danger"></i>Saturation :
+                    </label>
+                    <select id="saturationFilter" name="saturation" class="form-select form-select-sm w-auto me-3" onchange="this.form.submit()">
+                        <option th:value="ALL" th:selected="${saturation == null or saturation == 'ALL'}">Tous</option>
+                        <option th:value="SATURATED" th:selected="${saturation == 'SATURATED'}">Saturé </option>
+                        <option th:value="NON_SATURATED" th:selected="${saturation == 'NON_SATURATED'}">Non saturé</option>
+                    </select>
+                </form>
+
+                <!-- Tableau des demandes -->
             <div class="table-responsive">
                 <table class="table table-bordered table-hover shadow-sm">
                     <thead>

@@ -1,6 +1,7 @@
 package com.example.backoffice.controller;
 
 import com.example.backoffice.entity.City;
+import com.example.backoffice.entity.Role;
 import com.example.backoffice.entity.User;
 import com.example.backoffice.service.CityService;
 import com.example.backoffice.service.UserService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/users")
@@ -23,10 +26,20 @@ public class UserController {
     }
 
     @GetMapping
-    public String listUsers(Model model) {
-        model.addAttribute("users", userService.getAllUsers());
+    public String listUsers(@RequestParam(required = false) String role, Model model) {
+        List<User> users;
+
+        if (role == null || role.isEmpty() || role.equals("ALL")) {
+            users = userService.getAllUsers(); // Pas de filtre
+        } else {
+            users = userService.findByRole(role); // Filtre appliqué
+        }
+
+        model.addAttribute("users", users);
+        model.addAttribute("roleFilter", role);
         return "user/user-list";
     }
+
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {

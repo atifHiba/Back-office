@@ -37,11 +37,46 @@ public class RequestController {
     private DonationCenterRepository donationCenterRepository;
     @Autowired
     private RequestRepository requestRepository;
+
     @GetMapping
-    public String listRequests(Model model) {
-        model.addAttribute("requests", requestService.getAllRequests());
+    public String listRequests(
+            @RequestParam(required = false) String centerId,
+            @RequestParam(required = false) String saturation,
+            Model model) {
+
+        List<Request> requests;
+
+        if ((centerId == null || centerId.equals("ALL")) && (saturation == null || saturation.equals("ALL"))) {
+            requests = requestService.getAllRequests();
+        } else if (centerId != null && !centerId.equals("ALL") && (saturation == null || saturation.equals("ALL"))) {
+            Long id = Long.parseLong(centerId);
+            requests = requestService.getRequestsByCenterId(id);
+        } else if ((centerId == null || centerId.equals("ALL")) && saturation != null && !saturation.equals("ALL")) {
+            if ("SATURATED".equals(saturation)) {
+                requests = requestService.getRequestsByRequiredBloodUnits(0);
+            } else { // NON_SATURATED
+                requests = requestService.getRequestsByRequiredBloodUnitsGreaterThan(0);
+            }
+        } else {
+            // filtre combiné center + saturation
+            Long id = Long.parseLong(centerId);
+            if ("SATURATED".equals(saturation)) {
+                requests = requestService.getRequestsByCenterIdAndRequiredBloodUnits(id, 0);
+            } else { // NON_SATURATED
+                requests = requestService.getRequestsByCenterIdAndRequiredBloodUnitsGreaterThan(id, 0);
+            }
+        }
+
+        model.addAttribute("requests", requests);
+        model.addAttribute("centerFilter", centerId);
+        model.addAttribute("saturation", saturation);
+
+        List<DonationCenter> centers = donationCenterService.getAllDonationCenters();
+        model.addAttribute("centers", centers);
+
         return "request/request-list";
     }
+
 
     @GetMapping("/create")
     public String showCreateForm(Model model) {

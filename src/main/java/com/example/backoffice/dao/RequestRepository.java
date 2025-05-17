@@ -26,4 +26,16 @@ public interface RequestRepository extends JpaRepository<Request, Long> {
     long count();
     long countByRequiredBloodUnits(int requiredBloodUnits);
     long countByRequiredBloodUnitsGreaterThan(int requiredBloodUnits);
+    List<Request> findByDonationCenterId(Long centerId);
+    List<Request> findByRequiredBloodUnits(int requiredBloodUnits);
+
+    // Par nombre d'unités strictement supérieur
+    List<Request> findByRequiredBloodUnitsGreaterThan(int units);
+
+    // Par centre + nombre d'unités requises exact
+    List<Request> findByDonationCenterIdAndRequiredBloodUnits(Long centerId, int requiredBloodUnits);
+
+    // Par centre + nombre d'unités strictement supérieur
+    List<Request> findByDonationCenterIdAndRequiredBloodUnitsGreaterThan(Long centerId, int units);
+
 }

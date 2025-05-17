@@ -40,4 +40,31 @@ public class RequestServiceImpl implements RequestService {
         requestRepository.deleteById(id);
     }
 
+    @Override
+    public List<Request> getRequestsByCenterId(Long centerId) {
+        return requestRepository.findByDonationCenterId(centerId);
+    }
+
+
+    @Override
+    public List<Request> getRequestsByRequiredBloodUnits(int units) {
+        return requestRepository.findByRequiredBloodUnits(units);
+    }
+
+    @Override
+    public List<Request> getRequestsByRequiredBloodUnitsGreaterThan(int units) {
+        return requestRepository.findByRequiredBloodUnitsGreaterThan(units);
+    }
+
+    @Override
+    public List<Request> getRequestsByCenterIdAndRequiredBloodUnits(Long centerId, int units) {
+        return requestRepository.findByDonationCenterIdAndRequiredBloodUnits(centerId, units);
+    }
+
+    @Override
+    public List<Request> getRequestsByCenterIdAndRequiredBloodUnitsGreaterThan(Long centerId, int units) {
+        return requestRepository.findByDonationCenterIdAndRequiredBloodUnitsGreaterThan(centerId, units);
+    }
 }
+
+

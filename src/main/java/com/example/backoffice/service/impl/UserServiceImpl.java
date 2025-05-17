@@ -1,6 +1,7 @@
 package com.example.backoffice.service.impl;
 
 import com.example.backoffice.dao.UserRepository;
+import com.example.backoffice.entity.Role;
 import com.example.backoffice.entity.User;
 import com.example.backoffice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +57,14 @@ public class UserServiceImpl implements UserService {
     public void deleteUser(Long id) {
         userRepository.deleteById(id);
     }
+    public List<User> findByRole(String role) {
+        try {
+            Role enumRole = Role.valueOf(role); // Convertit "USER" en Role.USER
+            return userRepository.findByRole(enumRole);
+        } catch (IllegalArgumentException e) {
+            return List.of(); // Retourne une liste vide si rôle invalide
+        }
+    }
+
+
 }
