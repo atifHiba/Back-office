@@ -65,6 +65,10 @@ public class RequestServiceImpl implements RequestService {
     public List<Request> getRequestsByCenterIdAndRequiredBloodUnitsGreaterThan(Long centerId, int units) {
         return requestRepository.findByDonationCenterIdAndRequiredBloodUnitsGreaterThan(centerId, units);
     }
+    @Override
+    public long getTotalDemandes() {
+        return requestRepository.count();
+    }// Retourne le nombre d'admins
 }
 
 

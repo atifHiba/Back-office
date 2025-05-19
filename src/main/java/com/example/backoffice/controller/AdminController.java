@@ -8,6 +8,7 @@ import com.example.backoffice.entity.Admin;
 import com.example.backoffice.service.AdminService;
 import com.example.backoffice.service.DonationCenterService;
 import com.example.backoffice.service.DonationService;
+import com.example.backoffice.service.RequestService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -31,7 +32,7 @@ public class AdminController {
     private final RequestRepository requestRepository;
     private final DonationRepository donationRepository;
     private final AdminRepository adminRepository;
-
+    private final RequestService requestService;
     @GetMapping("/admin/dashboard")
     public String dashboard(Model model) {
         Pageable pageable = PageRequest.of(0, 1); // Limite à 1 résultat
@@ -39,6 +40,7 @@ public class AdminController {
         List<Object[]>Center = donationRepository.findDonationCenters();
             long totalDonors = donationService.getTotalDonors();
             long totalDonations = donationService.getTotalDonations();
+        long totalDemandes = requestService.getTotalDemandes();
         long saturatedRequests = requestRepository.countSaturatedRequests();
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
@@ -49,6 +51,7 @@ public class AdminController {
             centerNames.add((String) obj[0]);
             donationCounts.add((Long) obj[1]);
         }
+
         Admin admin = adminRepository.findByUsername(username).orElse(null);
         model.addAttribute("admin", admin);
         model.addAttribute("centerNames", centerNames);
@@ -57,6 +60,7 @@ public class AdminController {
             model.addAttribute("topCenter", topCenter);
             model.addAttribute("totalDonors", totalDonors);
             model.addAttribute("totalDonations", totalDonations);
+        model.addAttribute("totalDemandes", totalDemandes);
         List<Object[]> requestStats = requestRepository.countRequestSatisfaction();
 
         List<String> statuses = new ArrayList<>();

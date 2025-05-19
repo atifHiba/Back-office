@@ -195,7 +195,17 @@ h5{             color: rgb(186, 15, 18) !important;
                             </div>
                         </div>
                     </div>
+                    <div class="col-xl-3 mb-4">
+                        <div class="card bg-warning text-white h-100">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold d-flex align-items-center gap-2">
+                                    <i class="fas fa-hospital"></i> Total des demandes
+                                </h5>
+                                <span th:text="${totalDemandes}"></span>
 
+                            </div>
+                        </div>
+                    </div>
                     <!-- Demandes Saturées -->
                     <div class="col-xl-3 mb-4">
                         <div class="card bg-danger text-white h-100">
@@ -208,17 +218,8 @@ h5{             color: rgb(186, 15, 18) !important;
                         </div>
                     </div>
 
-                    <!-- Requests per Centre -->
-                    <div class="col-xl-3 mb-4">
-                        <div class="card bg-warning text-white h-100">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold d-flex align-items-center gap-2">
-                                    <i class="fas fa-hospital"></i> Requests per Centre
-                                </h5>
-                                <p>Centre X: 400 Requests</p>
-                            </div>
-                        </div>
-                    </div>
+
+
                 </div>
 
 

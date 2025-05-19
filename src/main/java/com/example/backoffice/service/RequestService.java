@@ -20,5 +20,6 @@ public interface RequestService {
     List<Request> getRequestsByCenterIdAndRequiredBloodUnits(Long centerId, int units);
 
     List<Request> getRequestsByCenterIdAndRequiredBloodUnitsGreaterThan(Long centerId, int units);
+    long getTotalDemandes();
 
 }

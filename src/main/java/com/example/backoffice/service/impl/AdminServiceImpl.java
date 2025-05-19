@@ -1,5 +1,6 @@
 package com.example.backoffice.service.impl;
 
+import com.example.backoffice.dao.RequestRepository;
 import com.example.backoffice.entity.Admin;
 import com.example.backoffice.dao.AdminRepository;
 import com.example.backoffice.service.AdminService;
@@ -13,7 +14,7 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class AdminServiceImpl implements AdminService {
-
+    private final RequestRepository requestRepository;
     private final AdminRepository adminRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -57,6 +58,8 @@ public class AdminServiceImpl implements AdminService {
         adminRepository.deleteById(id);
     }
     public long getTotalAdmins() {
-        return adminRepository.count();  // Retourne le nombre d'admins
+        return adminRepository.count();
+
     }
+
 }

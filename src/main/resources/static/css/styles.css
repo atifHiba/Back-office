@@ -11290,7 +11290,7 @@ body {
 
 .sb-sidenav {
   height: 100vh !important; /* pleine hauteur */
-  background: linear-gradient(to bottom, rgba(191, 165, 165, 0.82), rgb(156, 8, 8)) !important;
+  background: linear-gradient(to bottom, rgba(191, 165, 165, 0.75), rgb(156, 8, 8)) !important;
   background-repeat: no-repeat !important;
   background-size: cover !important;
   color: #0e0000; /* texte sombre */
